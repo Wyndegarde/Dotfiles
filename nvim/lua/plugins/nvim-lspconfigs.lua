@@ -4,14 +4,22 @@ local diagnostic_signs = require("util.lsp").diagnostic_signs
 local config = function()
   require("neoconf").setup({})
   local cmp_nvim_lsp = require("cmp_nvim_lsp")
-  local lspconfig = require("lspconfig")
 
   for type, icon in pairs(diagnostic_signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
   end
 
-  local capabilities = cmp_nvim_lsp.default_capabilities()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities = vim.tbl_deep_extend("force", capabilities, {
+    textDocument = {
+      completion = {
+        completionItem = {
+          snippetSupport = true,
+        },
+      },
+    },
+  })
   vim.diagnostic.config({
     virtual_text = {
       enabled = true,
@@ -35,9 +43,15 @@ local config = function()
     underline = true,
     update_in_insert = false,
     severity_sort = true,
+    float = {
+      border = "rounded",
+      source = "if_many",
+      header = "",
+      prefix = "",
+    },
   })
   -- lua
-  lspconfig.lua_ls.setup({
+  vim.lsp.config['lua_ls'] = {
     capabilities = capabilities,
     on_attach = on_attach,
     settings = { -- custom settings for lua
@@ -55,14 +69,16 @@ local config = function()
         },
       },
     },
-  })
+  }
+  vim.lsp.enable("lua_ls")
 
   -- json
-  lspconfig.jsonls.setup({
+  vim.lsp.config['jsonls'] = {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { "json", "jsonc" },
-  })
+  }
+  vim.lsp.enable("jsonls")
 
   -- python
   -- lspconfig.pyright.setup({
@@ -81,7 +97,7 @@ local config = function()
   -- 		},
   -- 	},
   -- })
-  lspconfig.basedpyright.setup({
+  vim.lsp.config['basedpyright'] = {
     capabilities = capabilities,
     on_attach = on_attach,
     settings = {
@@ -91,9 +107,10 @@ local config = function()
         },
       },
     }
-  })
+  }
+  vim.lsp.enable("basedpyright")
 
-  lspconfig.ruff.setup({
+  vim.lsp.config['ruff'] = {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = {
@@ -106,34 +123,53 @@ local config = function()
         args = {}
       }
     },
-  })
+  }
+  vim.lsp.enable("ruff")
 
-  -- typescript
-  lspconfig.ts_ls.setup({
+  -- typescript/javascript
+  vim.lsp.config['ts_ls'] = {
     on_attach = on_attach,
     capabilities = capabilities,
     filetypes = {
       "typescript",
+      "javascript",
+      "typescriptreact",
+      "javascriptreact",
     },
-    root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
-  })
+    root_markers = { "package.json", "tsconfig.json", ".git" },
+    settings = {
+      typescript = {
+        inlayHints = {
+          enabled = true,
+        },
+      },
+      javascript = {
+        inlayHints = {
+          enabled = true,
+        },
+      },
+    },
+  }
+  vim.lsp.enable("ts_ls")
 
   -- bash
-  lspconfig.bashls.setup({
+  vim.lsp.config['bashls'] = {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { "sh" },
-  })
+  }
+  vim.lsp.enable("bashls")
 
   -- solidity
-  lspconfig.solidity.setup({
+  vim.lsp.config['solidity'] = {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { "solidity" },
-  })
+  }
+  vim.lsp.enable("solidity")
 
   -- html, typescriptreact, javascriptreact, css, sass, scss, less, svelte, vue
-  lspconfig.emmet_ls.setup({
+  vim.lsp.config['emmet_ls'] = {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = {
@@ -148,13 +184,15 @@ local config = function()
       "svelte",
       "vue",
     },
-  })
+  }
+  vim.lsp.enable("emmet_ls")
 
   -- docker
-  lspconfig.dockerls.setup({
+  vim.lsp.config['dockerls'] = {
     capabilities = capabilities,
     on_attach = on_attach,
-  })
+  }
+  vim.lsp.enable("dockerls")
 
   local luacheck = require("efmls-configs.linters.luacheck")
   local stylua = require("efmls-configs.formatters.stylua")
@@ -169,7 +207,7 @@ local config = function()
   local solhint = require("efmls-configs.linters.solhint")
 
   -- configure efm server
-  lspconfig.efm.setup({
+  vim.lsp.config['efm'] = {
     filetypes = {
       "lua",
       "python",
@@ -195,6 +233,7 @@ local config = function()
       completion = true,
     },
     settings = {
+      rootMarkers = { ".git/" },
       languages = {
         lua = { luacheck, stylua },
         python = {},
@@ -212,7 +251,8 @@ local config = function()
         solidity = { solhint },
       },
     },
-  })
+  }
+  vim.lsp.enable("efm")
 end
 
 return {
