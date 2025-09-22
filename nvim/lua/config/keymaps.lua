@@ -10,10 +10,13 @@ mapkey("<leader>`", "e #", "n")  -- Switch to Other Buffer
 mapkey("<leader>bd", "bdelete", "n")
 mapkey("<leader>w", "w|bd", "n")
 
-
 -- Directory Navigation
 mapkey("<leader>m", "NvimTreeFocus", "n")
 mapkey("<leader>,", "NvimTreeToggle", "n")
+
+-- Line Navigation
+vim.api.nvim_set_keymap("n", "<C-d>", "<C-d>zz", { noremap = false }) -- center buffer after going down page
+vim.api.nvim_set_keymap("n", "<C-u>", "<C-u>zz", { noremap = false }) -- center buffer after going up page
 
 -- Pane and Window Navigation
 mapkey("<C-h>", "<C-w>h", "n")            -- Navigate Left
