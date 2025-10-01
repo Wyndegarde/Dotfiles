@@ -47,3 +47,11 @@ mapkey("<leader>pa", "echo expand('%:p')", "n") -- Show Full File Path
 -- Comments
 vim.api.nvim_set_keymap("n", "<C-_>", "gtc", { noremap = false })
 vim.api.nvim_set_keymap("v", "<C-_>", "goc", { noremap = false })
+
+-- Folding
+mapkey("<leader>z", "za", "n") -- Toggle fold under cursor
+mapkey("<leader>Z", "zA", "n") -- Toggle all folds under cursor recursively
+mapkey("<leader>zo", "zo", "n") -- Open fold under cursor
+mapkey("<leader>zc", "zc", "n") -- Close fold under cursor
+mapkey("<leader>zO", "zO", "n") -- Open all folds under cursor recursively
+mapkey("<leader>zC", "zC", "n") -- Close all folds under cursor recursively

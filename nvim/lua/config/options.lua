@@ -1,12 +1,12 @@
 local opt = vim.opt
 
 --Tab/Indentations
-opt.tabstop = 2        -- spaces per tab
-opt.shiftwidth = 2     -- spaces per indentation
-opt.softtabstop = 2    -- spaces per tab when in insert mode
-opt.expandtab = true   -- expands tabs into spaces if needed
+opt.tabstop = 2 -- spaces per tab
+opt.shiftwidth = 2 -- spaces per indentation
+opt.softtabstop = 2 -- spaces per tab when in insert mode
+opt.expandtab = true -- expands tabs into spaces if needed
 opt.smartindent = true -- allows for auto indentation
-opt.wrap = false       -- lines won't wrap when viewing
+opt.wrap = false -- lines won't wrap when viewing
 
 -- Search
 opt.incsearch = true
@@ -17,7 +17,9 @@ opt.hlsearch = false
 -- Appearance
 opt.number = true
 opt.relativenumber = true
-opt.statuscolumn = "%s%{v:lnum}|%{v:relnum}"
+-- opt.statuscolumn = "%s%{v:relnum}"
+opt.statuscolumn = '%{v:wrap ? repeat(" ", float2nr(ceil(log10(v:lnum))))."↳":v:lnum}%=%s%C'
+-- opt.statuscolumn = "%s%{v:lnum}|%{v:relnum}"
 opt.termguicolors = true
 -- opt.colorcolumn = "100"
 opt.signcolumn = "yes:2"
