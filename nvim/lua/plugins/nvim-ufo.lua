@@ -1,6 +1,6 @@
 return {
   "kevinhwang91/nvim-ufo",
-  dependencies = {"kevinhwang91/promise-async"},
+  dependencies = { "kevinhwang91/promise-async" },
   event = "BufReadPost",
   config = function()
     -- Configure folding
@@ -9,12 +9,17 @@ return {
     vim.o.foldenable = true
     vim.o.foldmethod = "expr"
     vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+    vim.api.nvim_set_hl(0, 'Folded', { bg = 'NONE', italic = true })
 
     -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
     vim.keymap.set("n", "zR", require("ufo").openAllFolds)
     vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
     vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
     vim.keymap.set("n", "zm", require("ufo").closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
+    vim.keymap.set("n", "z0", function() require("ufo").closeFoldsWith(0) end)
+    vim.keymap.set("n", "z1", function() require("ufo").closeFoldsWith(1) end)
+    vim.keymap.set("n", "z2", function() require("ufo").closeFoldsWith(2) end)
+    vim.keymap.set("n", "z3", function() require("ufo").closeFoldsWith(3) end)
     vim.keymap.set("n", "K", function()
       local winid = require("ufo").peekFoldedLinesUnderCursor()
       if not winid then
@@ -24,11 +29,11 @@ return {
 
     require("ufo").setup({
       provider_selector = function(bufnr, filetype, buftype)
-        return {"treesitter", "indent"}
+        return { "treesitter", "indent" }
       end,
       preview = {
         win_config = {
-          border = {"", "─", "", "", "", "─", "", ""},
+          border = { "", "─", "", "", "", "─", "", "" },
           winhighlight = "Normal:Folded",
           winblend = 0
         },
@@ -53,7 +58,7 @@ return {
           else
             chunkText = truncate(chunkText, targetWidth - curWidth)
             local hlGroup = chunk[2]
-            table.insert(newVirtText, {chunkText, hlGroup})
+            table.insert(newVirtText, { chunkText, hlGroup })
             chunkWidth = vim.fn.strdisplaywidth(chunkText)
             -- str width returned from truncate() may less than 2nd argument, need padding
             if curWidth + chunkWidth < targetWidth then
@@ -63,7 +68,7 @@ return {
           end
           curWidth = curWidth + chunkWidth
         end
-        table.insert(newVirtText, {suffix, "MoreMsg"})
+        table.insert(newVirtText, { suffix, "MoreMsg" })
         return newVirtText
       end
     })
