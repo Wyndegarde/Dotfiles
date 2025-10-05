@@ -3,6 +3,11 @@ return {
   lazy = false,
   config = function()
     require("gitsigns").setup({
+
+      vim.keymap.set("n", "<leader>gb", ":Gitsigns blame<CR>", {}),
+      vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {}),
+      vim.keymap.set("n", "<leader>gr", ":Gitsigns reset_hunk<CR>", {}),
+      vim.keymap.set("n", "<leader>gi", ":Gitsigns preview_hunk_inline<CR>", {}),
       signs = {
         add = { text = "┃" },
         change = { text = "┃" },
