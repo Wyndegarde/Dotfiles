@@ -180,7 +180,7 @@ The configuration includes automatic formatting and linting for:
 - **TypeScript/JavaScript**: ESLint (linting) + Prettier (formatting)
 - **JSON**: ESLint + FixJSON
 - **Shell**: ShellCheck (linting) + shfmt (formatting)
-- **Markdown**: Alex (linting) + Prettier (formatting)
+- **Markdown**: Prettier (formatting)
 - **Docker**: Hadolint (linting) + Prettier (formatting)
 - **Solidity**: Solhint (linting)
 
@@ -290,4 +290,3 @@ This will check:
 - [Telescope.nvim Documentation](https://github.com/nvim-telescope/telescope.nvim)
 - [Tree-sitter Documentation](https://tree-sitter.github.io/)
 - [Youtube tutorial for Neovim Setup](https://www.youtube.com/watch?v=ZjMzBd1Dqz8)
-

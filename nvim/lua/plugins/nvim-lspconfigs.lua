@@ -51,7 +51,7 @@ local config = function()
     },
   })
   -- lua
-  vim.lsp.config['lua_ls'] = {
+  vim.lsp.config["lua_ls"] = {
     capabilities = capabilities,
     on_attach = on_attach,
     settings = { -- custom settings for lua
@@ -73,7 +73,7 @@ local config = function()
   vim.lsp.enable("lua_ls")
 
   -- json
-  vim.lsp.config['jsonls'] = {
+  vim.lsp.config["jsonls"] = {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { "json", "jsonc" },
@@ -97,7 +97,7 @@ local config = function()
   -- 		},
   -- 	},
   -- })
-  vim.lsp.config['basedpyright'] = {
+  vim.lsp.config["basedpyright"] = {
     capabilities = capabilities,
     on_attach = on_attach,
     settings = {
@@ -106,28 +106,28 @@ local config = function()
           typeCheckingMode = "basic",
         },
       },
-    }
+    },
   }
   vim.lsp.enable("basedpyright")
 
-  vim.lsp.config['ruff'] = {
+  vim.lsp.config["ruff"] = {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = {
       "python",
       "markdown",
-      "yaml"
+      "yaml",
     },
     init_options = {
       settings = {
-        args = {}
-      }
+        args = {},
+      },
     },
   }
   vim.lsp.enable("ruff")
 
   -- typescript/javascript
-  vim.lsp.config['ts_ls'] = {
+  vim.lsp.config["ts_ls"] = {
     on_attach = on_attach,
     capabilities = capabilities,
     filetypes = {
@@ -152,8 +152,19 @@ local config = function()
   }
   vim.lsp.enable("ts_ls")
 
+  -- Terraform
+  vim.lsp.config["terraformls"] = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = {
+      "tf",
+      "terraform",
+      "tfvars",
+    },
+  }
+
   -- bash
-  vim.lsp.config['bashls'] = {
+  vim.lsp.config["bashls"] = {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { "sh" },
@@ -161,7 +172,7 @@ local config = function()
   vim.lsp.enable("bashls")
 
   -- solidity
-  vim.lsp.config['solidity'] = {
+  vim.lsp.config["solidity"] = {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { "solidity" },
@@ -169,7 +180,7 @@ local config = function()
   vim.lsp.enable("solidity")
 
   -- html, typescriptreact, javascriptreact, css, sass, scss, less, svelte, vue
-  vim.lsp.config['emmet_ls'] = {
+  vim.lsp.config["emmet_ls"] = {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = {
@@ -188,7 +199,7 @@ local config = function()
   vim.lsp.enable("emmet_ls")
 
   -- docker
-  vim.lsp.config['dockerls'] = {
+  vim.lsp.config["dockerls"] = {
     capabilities = capabilities,
     on_attach = on_attach,
   }
@@ -202,12 +213,13 @@ local config = function()
   local fixjson = require("efmls-configs.formatters.fixjson")
   local shellcheck = require("efmls-configs.linters.shellcheck")
   local shfmt = require("efmls-configs.formatters.shfmt")
-  local alex = require("efmls-configs.linters.alex")
+  -- local alex = require("efmls-configs.linters.alex")
   local hadolint = require("efmls-configs.linters.hadolint")
   local solhint = require("efmls-configs.linters.solhint")
+  local tf_fmt = require("efmls-configs.formatters.terraform_fmt")
 
   -- configure efm server
-  vim.lsp.config['efm'] = {
+  vim.lsp.config["efm"] = {
     filetypes = {
       "lua",
       "python",
@@ -223,6 +235,7 @@ local config = function()
       "markdown",
       "docker",
       "solidity",
+      "terraform",
     },
     init_options = {
       documentFormatting = true,
@@ -246,9 +259,10 @@ local config = function()
         typescriptreact = { eslint_d, prettierd },
         svelte = { eslint_d, prettierd },
         vue = { eslint_d, prettierd },
-        markdown = { alex, prettierd },
+        markdown = { prettierd },
         docker = { hadolint, prettierd },
         solidity = { solhint },
+        -- terraform = { tf_fmt },
       },
     },
   }
