@@ -34,6 +34,16 @@ local config = function()
     harpoon:list():add()
   end, { desc = "Harpoon add file" })
 
+  -- Remove file from harpoon list
+  vim.keymap.set("n", "<leader>hr", function()
+    harpoon:list():remove()
+  end, { desc = "Harpoon remove file" })
+
+  -- Remove all files from harpoon list
+  vim.keymap.set("n", "<leader>hc", function()
+    harpoon:list():clear()
+  end, { desc = "Harpoon clear list" })
+
   vim.keymap.set("n", "<C-e>", function()
     harpoon.ui:toggle_quick_menu(harpoon:list())
   end, { desc = "Harpoon quick menu" })
