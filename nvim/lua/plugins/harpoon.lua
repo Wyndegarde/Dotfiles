@@ -51,21 +51,21 @@ local config = function()
   vim.keymap.set("n", "<leader>fh", telescope_harpoon_files, { desc = "Harpoon telescope" })
 
   -- Navigate to specific files
-  vim.keymap.set("n", "<C-H2>", function()
-    harpoon:list():select(1)
-  end, { desc = "Harpoon file 1" })
-
-  vim.keymap.set("n", "<C-t>", function()
-    harpoon:list():select(2)
-  end, { desc = "Harpoon file 2" })
-
-  vim.keymap.set("n", "<C-n>", function()
-    harpoon:list():select(3)
-  end, { desc = "Harpoon file 3" })
-
-  vim.keymap.set("n", "<C-s>", function()
-    harpoon:list():select(4)
-  end, { desc = "Harpoon file 4" })
+  -- vim.keymap.set("n", "<C-r>", function()
+  --   harpoon:list():select(1)
+  -- end, { desc = "Harpoon file 1" })
+  --
+  -- vim.keymap.set("n", "<C-t>", function()
+  --   harpoon:list():select(2)
+  -- end, { desc = "Harpoon file 2" })
+  --
+  -- vim.keymap.set("n", "<C-n>", function()
+  --   harpoon:list():select(3)
+  -- end, { desc = "Harpoon file 3" })
+  --
+  -- vim.keymap.set("n", "<C-s>", function()
+  --   harpoon:list():select(4)
+  -- end, { desc = "Harpoon file 4" })
 
   -- Toggle previous & next buffers
   vim.keymap.set("n", "<leader>hn", function()

@@ -53,6 +53,13 @@ return {
       cursor:toggle()
     end
 
+    local Claude_Terminal = require("toggleterm.terminal").Terminal
+    local claude = Claude_Terminal:new({ cmd = "claude", hidden = true })
+
+    function _claude_toggle()
+      claude:toggle()
+    end
+
     vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>lua _python_toggle()<CR>", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("t", "<c-p>", "<cmd>lua _python_toggle()<CR>", { noremap = true, silent = true })
     -- vim.api.nvim_set_keymap("i", "<c-p>", "<cmd>lua _python_toggle()<CR>", { noremap = true, silent = true })
@@ -60,5 +67,8 @@ return {
     vim.api.nvim_set_keymap("n", "<c-g>", "<cmd>lua _cursor_toggle()<CR>", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("t", "<c-g>", "<cmd>lua _cursor_toggle()<CR>", { noremap = true, silent = true })
     -- vim.api.nvim_set_keymap("i", "<leader>g", "<cmd>lua _cursor_toggle()<CR>", { noremap = true, silent = true })
+
+    vim.api.nvim_set_keymap("n", "<c-q>", "<cmd>lua _claude_toggle()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("t", "<c-q>", "<cmd>lua _claude_toggle()<CR>", { noremap = true, silent = true })
   end,
 }

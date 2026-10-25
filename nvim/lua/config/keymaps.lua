@@ -38,8 +38,8 @@ mapkey("<leader>-", "split", "n")            -- Split Horizontally
 mapkey("<leader>sm", "MaximizerToggle", "n") -- Toggle Minimise
 
 -- Indenting
-mapkey("<", "v", "<gv") -- Shift Indentation to Left
-mapkey(">", "v", ">gv") -- Shift Indentation to Right
+vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true }) -- Shift Indentation to Left
+vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true }) -- Shift Indentation to Right
 
 -- Show Full File-Path
 mapkey("<leader>pa", "echo expand('%:p')", "n") -- Show Full File Path
@@ -49,8 +49,8 @@ vim.api.nvim_set_keymap("n", "<C-_>", "gtc", { noremap = false })
 vim.api.nvim_set_keymap("v", "<C-_>", "goc", { noremap = false })
 
 -- Folding
-mapkey("<leader>z", "za", "n") -- Toggle fold under cursor
-mapkey("<leader>Z", "zA", "n") -- Toggle all folds under cursor recursively
+mapkey("<leader>z", "za", "n")  -- Toggle fold under cursor
+mapkey("<leader>Z", "zA", "n")  -- Toggle all folds under cursor recursively
 mapkey("<leader>zo", "zo", "n") -- Open fold under cursor
 mapkey("<leader>zc", "zc", "n") -- Close fold under cursor
 mapkey("<leader>zO", "zO", "n") -- Open all folds under cursor recursively
